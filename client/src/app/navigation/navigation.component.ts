@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { NavigationItem } from './../shared/models/navigationitem';
 import { RouteConst } from './../shared/constants';
+import { ContextService } from './../services/context.service';
 
 
 @Component({
@@ -11,13 +13,23 @@ import { RouteConst } from './../shared/constants';
 })
 export class NavigationComponent implements OnInit {
     navItems: NavigationItem[];
-    constructor() { }
+    currentEnvironment: String;
+    subscription: Subscription;
+    constructor(private contextService: ContextService) {
+         this.subscription = this.contextService.GetEnvironmentChangeAsObservable()
+                            .subscribe(m => this.setCurrentEnvironment(m.Name));
+     }
 
     ngOnInit() {
         this.getNavItems();
+
     }
 
-    getNavItems(): void {
+    private setCurrentEnvironment(name: string): void {
+        this.currentEnvironment = name;
+    }
+
+    private getNavItems(): void {
        this.navItems = NavigationItem[2] = [
             new NavigationItem('Home', 'main'),
             new NavigationItem('Select Environment', RouteConst.EnvironmentSelectionPath),
