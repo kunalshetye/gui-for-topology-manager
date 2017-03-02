@@ -62,6 +62,8 @@ import { ExtensionPropertiesComponent } from './shared/extensionsproperties/exte
 import { MessageComponent } from './shared/message/message.component';
 import { MessageService } from './services/message.service';
 import { ContextService } from './services/context.service';
+import { ExportComponent } from './export/export.component';
+
 
 @NgModule({
   imports: [
@@ -108,7 +110,8 @@ import { ContextService } from './services/context.service';
     MappingEditComponent,
     MessageComponent,
     DeleteWindowComponent,
-    ExtensionPropertiesComponent
+    ExtensionPropertiesComponent,
+    ExportComponent
   ],
   providers: [
     MessageService,
